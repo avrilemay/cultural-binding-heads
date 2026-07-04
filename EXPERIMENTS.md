@@ -42,7 +42,7 @@ Most notebooks depend only on `data/N4_1k.pkl`. The dependencies that constrain 
 | Paper item | Content | Notebook | Runs |
 |---|---|---|---|
 | Table 1 (§4.1), Table 7 (App B) | Baseline binding \|ΔS\| | `binding_knockout/binding_knockout_{instruct,base}.ipynb` | 8 |
-| Table 2 (§4.2), Table 10 (App E) | R→item edge knockout + U→item control | `binding_knockout/…`; significance markers (†): `analysis/analysis_phase2.ipynb` §4b — paired t-tests on item-level means (n=66), one-sided for R→item, two-sided for the U→item control | 8 |
+| Table 2 (§4.2), Table 10 (App E) | R→item edge knockout + U→item control | `binding_knockout/…`; significance markers (†): `analysis/analysis_phase2.ipynb` §4b — paired t-tests on item-level means (n=66), one-sided for R→item, two-sided for the U→item control, Benjamini–Hochberg FDR-corrected across the eight models per condition | 8 |
 | Table 3 (§4.5) | DiffAware/CtxtAware steering, instruct | `steering/steering_instruct.ipynb` | 4 instruct |
 | Table 4 (§4.6) | Knowledge probing \|ΔK\|, K/S gap | `binding_knockout/…` | 8 |
 | Table 5 (§4.7), Table 12 (App F) | Knockout dissociation (%S, %K, K/S) + control | `binding_knockout/…` | 8 |
