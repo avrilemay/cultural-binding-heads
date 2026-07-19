@@ -1,6 +1,6 @@
 """Edge intervention functions (attention-edge knockout and scaling).
 
-Copied verbatim from pipeline_base.ipynb ("Edge intervention functions"
+Copied verbatim from the base pipeline ("Edge intervention functions"
 cell). CFG lookups were rewritten to common.config.CFG.
 """
 

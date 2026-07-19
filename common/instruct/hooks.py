@@ -1,6 +1,6 @@
 """Attention-edge interventions: edge knockout, edge alpha-scaling, and scoring.
 
-Extracted verbatim from pipeline_instruct.ipynb, 'Edge knockout (model-aware
+Extracted verbatim from the instruct pipeline, 'Edge knockout (model-aware
 attention intervention)' cell. CFG lookups are read from common.config.
 reset_eager_attention is copied verbatim from khead_discovery_instruct.ipynb
 (causal cross-test cell, v4).

@@ -1,6 +1,6 @@
 """S/K-score computation for the base pipeline (baseline, knockout, scaled).
 
-Copied verbatim from pipeline_base.ipynb (S-score baseline, edge-knockout,
+Copied verbatim from the base pipeline (S-score baseline, edge-knockout,
 standalone-KO and dose-response cells). The runtime singleton first_device
 was rewritten to common.config.first_device.
 """

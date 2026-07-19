@@ -1,6 +1,6 @@
 """Dataset construction for the base-model pipeline (N4 factorial pairs).
 
-Copied verbatim from pipeline_base.ipynb ("Dataset construction" and
+Copied verbatim from the base pipeline ("Dataset construction" and
 "Knowledge probe construction" cells). Only import statements were added;
 shared text parsers come from common.text_parsers.
 """

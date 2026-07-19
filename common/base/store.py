@@ -1,6 +1,6 @@
 """Results persistence for the base pipeline.
 
-Copied verbatim from pipeline_base.ipynb ("Results store" cell).
+Copied verbatim from the base pipeline ("Results store" cell).
 OUTPUT_DIR was rewritten to common.config.OUTPUT_DIR (set by config.init).
 Note: init_results_store() stays in the notebooks because it reads the
 notebook-level globals `data` and `n_total`.

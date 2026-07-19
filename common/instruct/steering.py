@@ -1,6 +1,6 @@
 """DiffAware steering: Wang-protocol generation and metrics (Stage 5).
 
-Extracted verbatim from pipeline_instruct.ipynb, 'Stage 5: DiffAware steering
+Extracted verbatim from the instruct pipeline, 'Stage 5: DiffAware steering
 (Wang et al. protocol, with bootstrap CI)' cell. The global tokenizer used by
 generate_pipeline is read from common.config.
 """

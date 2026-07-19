@@ -1,8 +1,8 @@
 """Shared configuration for all notebooks.
 
 The two model tables are copied verbatim from the canonical pipeline notebooks:
-- MODEL_CONFIGS_INSTRUCT: pipeline_instruct.ipynb, "Model configuration" cell
-- MODELS_BASE:            pipeline_base.ipynb, "Model configuration" cell
+- MODEL_CONFIGS_INSTRUCT: the instruct pipeline, "Model configuration" cell
+- MODELS_BASE:            the base pipeline, "Model configuration" cell
 
 Usage in every notebook:
     from common import config
@@ -133,7 +133,7 @@ def init(model_key, variant):
     CFG = table[model_key]
     HEADS = CFG["heads"]
     if variant == "base":
-        # verbatim from pipeline_base.ipynb: Nemo embeds '(' directly in
+        # verbatim from the base pipeline: Nemo embeds '(' directly in
         # ANSWER_START; other models append it dynamically via
         # COND_PREFIX_TID in a second forward pass.
         if CFG["cond_approach"] == "in_prompt":

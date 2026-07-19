@@ -1,6 +1,6 @@
 """Generation-time steering for the base pipeline (DiffAware).
 
-Copied verbatim from pipeline_base.ipynb ("DiffAware generation-time
+Copied verbatim from the base pipeline ("DiffAware generation-time
 steering" cell). ANSWER_START was rewritten to common.config.ANSWER_START.
 """
 

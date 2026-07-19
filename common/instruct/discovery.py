@@ -1,6 +1,6 @@
 """Attention extraction and cross-validated L1 head discovery (Stage 2).
 
-Extracted verbatim from pipeline_instruct.ipynb, 'Stage 2: attention binding
+Extracted verbatim from the instruct pipeline, 'Stage 2: attention binding
 CV (head discovery)' cell. SEED and first_device are read from common.config.
 
 run_feature_type_comparison and run_loo (Stage 3 cell) reference notebook

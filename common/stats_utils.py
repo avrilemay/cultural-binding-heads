@@ -1,6 +1,6 @@
 """Statistical helpers.
 
-ttest_clustered: extracted verbatim from pipeline_instruct.ipynb
+ttest_clustered: extracted verbatim from the instruct pipeline
 ('Knowledge evaluation (standalone)' cell). cond_p_R: identical in both
 pipelines; extracted from the same cell. benjamini_hochberg: added at
 curation for the Table 2 significance markers.

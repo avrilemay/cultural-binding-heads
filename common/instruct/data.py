@@ -1,6 +1,6 @@
 """Data loading, factorial-pair construction, and knowledge probes (instruct pipeline).
 
-Extracted verbatim from pipeline_instruct.ipynb, 'Shared helpers (data loading,
+Extracted verbatim from the instruct pipeline, 'Shared helpers (data loading,
 conditions, span detection)' cell. Config globals (MC) are read from
 common.config; text parsers are imported from common.text_parsers.
 

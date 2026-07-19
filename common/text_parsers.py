@@ -1,6 +1,6 @@
 """Text parsers shared verbatim by the base and instruct pipelines.
 
-Extracted from pipeline_instruct.ipynb, 'Shared helpers' cell; the base
+Extracted from the instruct pipeline, 'Shared helpers' cell; the base
 pipeline defines byte-identical copies (verified at curation time).
 """
 

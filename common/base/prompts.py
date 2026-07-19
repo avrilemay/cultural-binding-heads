@@ -1,6 +1,6 @@
 """Prompt formatting, answer-token discovery and response parsing (base pipeline).
 
-Copied verbatim from pipeline_base.ipynb ("Scoring and token utilities",
+Copied verbatim from the base pipeline ("Scoring and token utilities",
 "Token span detection" and "DiffAware generation-time steering" cells).
 Config globals (ANSWER_START, MC_WANG) were rewritten to common.config.
 """
@@ -243,7 +243,7 @@ def map_to_abc(word):
 
 
 # NOTE: this is the STEERING version of extract_neutral_item, from the
-# "DiffAware generation-time steering" cell of pipeline_base.ipynb. The
+# "DiffAware generation-time steering" cell of the base pipeline. The
 # historical notebook defined an earlier version in its dataset-construction
 # cell (kept as common.base.data.extract_neutral_item) and then REDEFINED
 # (overwrote) it with this one before the steering experiment. Both versions
