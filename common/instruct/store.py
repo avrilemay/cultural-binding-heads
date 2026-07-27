@@ -1,8 +1,7 @@
 """Per-run results store: init and pickle persistence.
 
-Extracted verbatim from the instruct pipeline, 'Shared helpers (data loading,
-conditions, span detection)' cell (init_results_store, save_results). Config
-globals (ACTIVE_MODEL, CFG, SEED, OUTPUT_DIR) are read from common.config.
+Config globals (ACTIVE_MODEL, CFG, SEED, OUTPUT_DIR) are read from
+common.config.
 """
 
 

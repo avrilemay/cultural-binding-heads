@@ -1,7 +1,4 @@
-"""Text parsers shared verbatim by the base and instruct pipelines.
-
-Extracted from the instruct pipeline, 'Shared helpers' cell; the base
-pipeline defines byte-identical copies (verified at curation time).
+"""N4 text parsers, shared by the base and instruct pipelines.
 """
 
 

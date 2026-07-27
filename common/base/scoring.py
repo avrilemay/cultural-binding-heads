@@ -1,8 +1,7 @@
 """S/K-score computation for the base pipeline (baseline, knockout, scaled).
 
-Copied verbatim from the base pipeline (S-score baseline, edge-knockout,
-standalone-KO and dose-response cells). The runtime singleton first_device
-was rewritten to common.config.first_device.
+Covers the baseline, edge-knockout and alpha-scaled score paths. The runtime
+device singleton is read from common.config.first_device.
 """
 
 

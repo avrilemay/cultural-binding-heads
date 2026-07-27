@@ -1,8 +1,6 @@
 """Chat formatting, option-token lookup, span detection, and Wang response parsing.
 
-Extracted verbatim from the instruct pipeline, 'Shared helpers (data loading,
-conditions, span detection)' cell. Config globals (CFG, ANSWER_SUFFIX) are
-read from common.config.
+Config globals (CFG, ANSWER_SUFFIX) are read from common.config.
 """
 
 

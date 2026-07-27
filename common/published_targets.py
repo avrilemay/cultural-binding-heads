@@ -3,11 +3,9 @@
 These encode the paper's numbers as regression targets — they are NOT
 independent validation.
 
-TARGETS_BASE (+ ABS_TOL_BASE / PCT_TOL_BASE) is copied verbatim from the
-validation-gate cell of the base pipeline; TARGETS_INSTRUCT
-(+ ABS_TOL_INSTRUCT / PCT_TOL_INSTRUCT) from the validation-gate cell of
-the instruct (Mistral) pipeline. Only the _BASE / _INSTRUCT suffixes were
-added so both tables can live in one module.
+TARGETS_BASE (+ ABS_TOL_BASE / PCT_TOL_BASE) holds the base-model targets and
+tolerances, TARGETS_INSTRUCT (+ ABS_TOL_INSTRUCT / PCT_TOL_INSTRUCT) the
+instruct ones.
 """
 
 TARGETS_BASE = {

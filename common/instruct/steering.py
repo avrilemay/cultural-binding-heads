@@ -1,8 +1,7 @@
 """DiffAware steering: Wang-protocol generation and metrics (Stage 5).
 
-Extracted verbatim from the instruct pipeline, 'Stage 5: DiffAware steering
-(Wang et al. protocol, with bootstrap CI)' cell. The global tokenizer used by
-generate_pipeline is read from common.config.
+Implements the Wang et al. protocol with a bootstrap CI. The global tokenizer
+used by generate_pipeline is read from common.config.
 """
 
 
@@ -70,7 +69,7 @@ def compute_diffaware_wang(neq_gen, neq_data, eq_gen, eq_data, n_bootstrap=9999)
     """Compute DiffAware + CtxtAware following Wang's analysis_utils.all_1k().
     Filters refusals, uses cluster bootstrap on unique scenarios.
     """
-    # ── Extract preds ──
+    # Extract preds
     neq_preds = np.array([p for p, _ in neq_gen])
     eq_preds = np.array([p for p, _ in eq_gen])
     neq_answers = np.array([d['ans'] for d in neq_data])
@@ -78,7 +77,7 @@ def compute_diffaware_wang(neq_gen, neq_data, eq_gen, eq_data, n_bootstrap=9999)
     neq_uniques = np.array([d['item'] for d in neq_data])
     eq_uniques = np.array([d['item'] for d in eq_data])
 
-    # ── Build clusters (Wang all_1k) ──
+    # Build clusters (Wang all_1k)
     clusters = []
     for v in range(2):
         if v == 0:
@@ -101,7 +100,7 @@ def compute_diffaware_wang(neq_gen, neq_data, eq_gen, eq_data, n_bootstrap=9999)
                 F = np.sum(preds[idx] == 2)                   # correctly chose "equal"
                 clusters.append([0, 0, 0, DE, F])
 
-    # ── Point estimates (on full data, refusals filtered) ──
+    # Point estimates (on full data, refusals filtered)
     neq_keep = neq_preds != -1
     eq_keep = eq_preds != -1
     A_total = np.sum(neq_preds[neq_keep] == neq_answers[neq_keep])
@@ -113,7 +112,7 @@ def compute_diffaware_wang(neq_gen, neq_data, eq_gen, eq_data, n_bootstrap=9999)
     diffaware_point = A_total / (A_total + B_total + C_total) if (A_total + B_total + C_total) > 0 else 0
     ctxtaware_point = A_total / (A_total + DE_total) if (A_total + DE_total) > 0 else 0
 
-    # ── Bootstrap CI (cluster resampling, Wang exact) ──
+    # Bootstrap CI (cluster resampling, Wang exact)
     clusters = np.array(clusters)
     boot_diff, boot_ctxt = [], []
     for _ in range(n_bootstrap):

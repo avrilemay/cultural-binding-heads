@@ -1,9 +1,8 @@
 """Statistical helpers.
 
-ttest_clustered: extracted verbatim from the instruct pipeline
-('Knowledge evaluation (standalone)' cell). cond_p_R: identical in both
-pipelines; extracted from the same cell. benjamini_hochberg: added at
-curation for the Table 2 significance markers.
+ttest_clustered: cluster-corrected t-test at the item level. cond_p_R:
+conditional P(R), shared by the base and instruct pipelines.
+benjamini_hochberg: FDR correction for the Table 2 significance markers.
 """
 
 

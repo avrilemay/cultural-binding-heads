@@ -1,8 +1,7 @@
 """Dataset construction for the base-model pipeline (N4 factorial pairs).
 
-Copied verbatim from the base pipeline ("Dataset construction" and
-"Knowledge probe construction" cells). Only import statements were added;
-shared text parsers come from common.text_parsers.
+Builds the factorial conditions and the knowledge probes. Shared text
+parsers come from common.text_parsers.
 """
 
 
@@ -214,7 +213,7 @@ def build_factorial_pairs_v3(cultural_items, seed=42):
     print(f"  {n_skipped} item pairs skipped (shared group)")
     print(f"  {len(pairs)} raw pairs")
 
-    # ── Balance: each identity T times correct AND T times wrong ──
+    # Balance: each identity T times correct AND T times wrong
     best_T, best_sel = 0, []
     for T in range(30, 0, -1):
         rng_bal = np.random.RandomState(seed)

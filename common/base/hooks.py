@@ -1,7 +1,6 @@
 """Edge intervention functions (attention-edge knockout and scaling).
 
-Copied verbatim from the base pipeline ("Edge intervention functions"
-cell). CFG lookups were rewritten to common.config.CFG.
+Model configuration is read from common.config.CFG.
 """
 
 

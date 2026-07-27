@@ -104,6 +104,10 @@ Model forward passes run in bfloat16, so small numerical drift across hardware/l
 
 Several notebooks end with a validation gate that compares regenerated numbers against the published run (`common/published_targets.py`). These are regeneration tests against the paper's own numbers, not independent validation.
 
+## Code provenance
+
+This release is a consolidated version of the code used for the reported runs. The original working pipeline was organised as one notebook per model per experiment; here each experiment is a single notebook parameterized by `MODEL_KEY`, and the helpers that were duplicated across those copies (model tables, N4 text parsing, prompt formatting, attention-edge hooks, scoring, persistence) are factored into `common/`. The experiment code itself is unchanged. Where a notebook keeps a local copy of a helper rather than importing the shared one, this is deliberate and flagged in the notebook, because the two differ in behaviour. The validation gates described above re-derive the published numbers from the code as released.
+
 ## Citation
 
 ```bibtex

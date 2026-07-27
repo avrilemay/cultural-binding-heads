@@ -1,8 +1,9 @@
 """Shared configuration for all notebooks.
 
-The two model tables are copied verbatim from the canonical pipeline notebooks:
-- MODEL_CONFIGS_INSTRUCT: the instruct pipeline, "Model configuration" cell
-- MODELS_BASE:            the base pipeline, "Model configuration" cell
+Two model tables, one per variant:
+- MODEL_CONFIGS_INSTRUCT: HF ids, binding heads, chat-template and soft-capping flags
+- MODELS_BASE:            the same for the base models (note the "gemma" / "gemma2"
+                          key difference between the two tables)
 
 Usage in every notebook:
     from common import config
@@ -106,7 +107,7 @@ MC_WANG = MC
 
 MAX_NEW_TOKENS = 5
 
-# ── mutable state, set by init() ──────────────────────────────────
+# mutable state, set by init()
 MODEL_KEY = None      # active model key
 ACTIVE_MODEL = None   # historical alias used by the instruct notebooks
 VARIANT = None        # "instruct" | "base"
@@ -133,9 +134,8 @@ def init(model_key, variant):
     CFG = table[model_key]
     HEADS = CFG["heads"]
     if variant == "base":
-        # verbatim from the base pipeline: Nemo embeds '(' directly in
-        # ANSWER_START; other models append it dynamically via
-        # COND_PREFIX_TID in a second forward pass.
+        # Nemo embeds '(' directly in ANSWER_START; other models append it
+        # dynamically via COND_PREFIX_TID in a second forward pass.
         if CFG["cond_approach"] == "in_prompt":
             ANSWER_START = (
                 "Answering between the provided multiple choice "

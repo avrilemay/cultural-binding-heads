@@ -1,7 +1,6 @@
 """Results persistence for the base pipeline.
 
-Copied verbatim from the base pipeline ("Results store" cell).
-OUTPUT_DIR was rewritten to common.config.OUTPUT_DIR (set by config.init).
+OUTPUT_DIR is read from common.config.OUTPUT_DIR (set by config.init).
 Note: init_results_store() stays in the notebooks because it reads the
 notebook-level globals `data` and `n_total`.
 """

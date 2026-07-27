@@ -1,9 +1,10 @@
 """Attention-edge interventions: edge knockout, edge alpha-scaling, and scoring.
 
-Extracted verbatim from the instruct pipeline, 'Edge knockout (model-aware
-attention intervention)' cell. CFG lookups are read from common.config.
-reset_eager_attention is copied verbatim from khead_discovery_instruct.ipynb
-(causal cross-test cell, v4).
+CFG lookups are read from common.config.
+
+Note: knowledge_heads/khead_discovery_instruct.ipynb deliberately defines and
+uses its own local variant of this machinery, whose leak-window semantics
+differ; see the note in that notebook before importing from here in its place.
 """
 
 
@@ -84,7 +85,7 @@ def edge_knockout(model, heads, source_tokens, target_tokens):
                 q_h, k_h, v_h = query[:, :, h, :], key[:, :, kv_h, :], value[:, :, kv_h, :]
 
             attn_scores = torch.matmul(q_h, k_h.transpose(-2, -1)) * scaling
-            # ── Gemma-2 soft-capping ──
+            # Gemma-2 soft-capping
             if softcapping is not None:
                 attn_scores = attn_scores / softcapping
                 attn_scores = torch.tanh(attn_scores)
@@ -202,7 +203,7 @@ def edge_scale(model, heads, source_tokens, target_tokens, alpha=0.0):
                 else:
                     attn_scores = attn_scores + attention_mask[:, h, :seq_len_q, :seq_len_k]
 
-            # ── KO version: zero target edges ──
+            # KO version: zero target edges
             attn_scores_ko = attn_scores.clone()
             for t_idx in tgt:
                 for s_idx in src:
@@ -210,11 +211,11 @@ def edge_scale(model, heads, source_tokens, target_tokens, alpha=0.0):
             attn_probs_ko = F.softmax(attn_scores_ko, dim=-1)
             out_ko = torch.matmul(attn_probs_ko, v_h)
 
-            # ── Normal version ──
+            # Normal version
             attn_probs_normal = F.softmax(attn_scores, dim=-1)
             out_normal = torch.matmul(attn_probs_normal, v_h)
 
-            # ── Blend: out = out_ko + α * (out_normal - out_ko) ──
+            # Blend: out = out_ko + α * (out_normal - out_ko)
             new_output = out_ko + alpha_val * (out_normal - out_ko)
 
             if out_head_axis == 1:

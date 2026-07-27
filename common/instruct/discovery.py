@@ -1,11 +1,10 @@
 """Attention extraction and cross-validated L1 head discovery (Stage 2).
 
-Extracted verbatim from the instruct pipeline, 'Stage 2: attention binding
-CV (head discovery)' cell. SEED and first_device are read from common.config.
+SEED and first_device are read from common.config.
 
-run_feature_type_comparison and run_loo (Stage 3 cell) reference notebook
-execution-state globals (cv_results, comparison_results), so they stay
-verbatim in the notebook and are deliberately NOT extracted here.
+run_feature_type_comparison and run_loo (Stage 3) reference notebook
+execution-state globals (cv_results, comparison_results), so they stay defined
+in the notebook and are deliberately not extracted here.
 """
 
 
@@ -157,7 +156,7 @@ def run_outer_cv(all_features, scenarios_valid, feature_name="bind_avg",
             "train_idx": tr_idx, "test_idx": te_idx,
         })
 
-    # ── Aggregate ──
+    # Aggregate
     head_counter = Counter()
     for f in fold_results:
         for lh in f["heads"]:

@@ -1,11 +1,7 @@
 """Data loading, factorial-pair construction, and knowledge probes (instruct pipeline).
 
-Extracted verbatim from the instruct pipeline, 'Shared helpers (data loading,
-conditions, span detection)' cell. Config globals (MC) are read from
-common.config; text parsers are imported from common.text_parsers.
-
-Note: the source cell assigns MC_PREFIX twice with the byte-identical value
-(`MC_PREFIX = MC  # alias`), so a single assignment is kept here.
+Config globals (MC) are read from common.config; text parsers are imported
+from common.text_parsers.
 """
 
 
@@ -152,7 +148,7 @@ def build_factorial_pairs_v3(cultural_items, seed=42):
     print(f"  {n_skipped} item pairs skipped (shared group)")
     print(f"  {len(pairs)} raw pairs")
 
-    # ── Balance: each identity T times correct AND T times wrong ──
+    # Balance: each identity T times correct AND T times wrong
     best_T, best_sel = 0, []
     for T in range(30, 0, -1):
         rng_bal = np.random.RandomState(seed)

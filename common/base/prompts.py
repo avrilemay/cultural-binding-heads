@@ -1,8 +1,8 @@
 """Prompt formatting, answer-token discovery and response parsing (base pipeline).
 
-Copied verbatim from the base pipeline ("Scoring and token utilities",
-"Token span detection" and "DiffAware generation-time steering" cells).
-Config globals (ANSWER_START, MC_WANG) were rewritten to common.config.
+Covers scoring and token utilities, offset-based token-span detection, and the
+prompt side of generation-time steering. Config globals (ANSWER_START, MC_WANG)
+are read from common.config.
 """
 
 
@@ -242,12 +242,11 @@ def map_to_abc(word):
     return bina
 
 
-# NOTE: this is the STEERING version of extract_neutral_item, from the
-# "DiffAware generation-time steering" cell of the base pipeline. The
-# historical notebook defined an earlier version in its dataset-construction
-# cell (kept as common.base.data.extract_neutral_item) and then REDEFINED
-# (overwrote) it with this one before the steering experiment. Both versions
-# are preserved verbatim under their original name, one per module.
+# NOTE: two different functions named extract_neutral_item live in this package.
+# This is the steering version, used by the generation-time steering experiment;
+# common.base.data.extract_neutral_item is the dataset-construction version, which
+# this one supersedes at that point in the pipeline. Both are kept, one per module,
+# under their original name, so each stage keeps the behaviour it was run with.
 def extract_neutral_item(q, qtype):
     """Extract the neutral (non-cultural) item from an eq question."""
     patterns = {
