@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use this code or data, please cite the paper below."
+title: "Cultural Binding Heads in Language Models"
+authors:
+  - family-names: Floro
+    given-names: Avrile
+    affiliation: "Institut Polytechnique de Paris"
+  - family-names: Benedetto
+    given-names: Luca
+    affiliation: "Télécom SudParis, Institut Polytechnique de Paris"
+repository-code: "https://github.com/avrilemay/cultural-binding-heads"
+license: CC0-1.0
+preferred-citation:
+  type: article
+  title: "Cultural Binding Heads in Language Models"
+  authors:
+    - family-names: Floro
+      given-names: Avrile
+    - family-names: Benedetto
+      given-names: Luca
+  year: 2026
+  journal: "arXiv preprint"
+  identifiers:
+    - type: other
+      value: "arXiv:2605.28543"
+  url: "https://arxiv.org/abs/2605.28543"

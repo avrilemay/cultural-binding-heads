@@ -1,16 +1,16 @@
 # Cultural Binding Heads in Language Models
 
-Code and data accompanying the paper *Cultural Binding Heads in Language Models* (anonymous submission).
+Code and data for the paper [*Cultural Binding Heads in Language Models*](https://arxiv.org/abs/2605.28543) (Avrile Floro and Luca Benedetto), accepted at **BlackboxNLP 2026**.
 
 ## Overview
 
-We use mechanistic interpretability and a factorial design on the **N4 cultural appropriation benchmark** from Wang et al. (2025) to identify 2–3 mid-layer attention heads per model that contribute causally to *cultural binding* — the association of cultural items with the appropriate identity. Knockout of identity→item edges on these heads lowers binding strength by 9–23%. Identified heads transfer from instruct to base models, suggesting binding is established at pre-training. α-scaling produces a graded dose-response, and moderate amplification at generation time (α = 2–3) increases cultural differentiation accuracy by 1–3 pp while leaving neutral reasoning largely intact. A knowledge-probing task shows the gap between what models know and what they act upon is wide (factor 3–5×).
+Using mechanistic interpretability and a factorial design on the **N4 cultural appropriation benchmark** (Wang et al., 2025), we identify 2–3 mid-layer attention heads per model that causally support *cultural binding*: associating cultural items with the appropriate identity. Knocking out the identity→item edges on these heads lowers binding strength by 9–23%. The heads transfer from instruct to base models, α-scaling gives a graded dose-response, and moderate amplification at generation time (α = 2–3) raises cultural differentiation accuracy by 1–3 pp with little effect on neutral reasoning. A knowledge-probing task shows that models know 3–5× more than they act upon.
 
-The pipeline is implemented for eight models across four architectures (base and instruct): Mistral-7B-v0.3, Llama-3.1-8B, Gemma-2-9B, Mistral-Nemo-12B-Base-2407 and their instruction-tuned counterparts.
+Eight models across four architectures, base and instruct: Mistral-7B-v0.3, Llama-3.1-8B, Gemma-2-9B, Mistral-Nemo-12B-Base-2407 and their instruction-tuned counterparts.
 
 ## Repository structure
 
-One directory per type of analysis. Each notebook is parameterized by a `MODEL_KEY` variable in its first code cell; base and instruct models are covered by separate notebook variants (`*_base.ipynb` / `*_instruct.ipynb`) because their prompt formats and scoring differ by design.
+One directory per analysis. Each notebook is parameterized by `MODEL_KEY` in its first code cell; base and instruct models have separate notebook variants (`*_base.ipynb` / `*_instruct.ipynb`) because their prompt formats and scoring differ.
 
 ```
 .
@@ -39,23 +39,18 @@ One directory per type of analysis. Each notebook is parameterized by a `MODEL_K
 └── results/                  # outputs, written per run to results/<model>_<variant>/
 ```
 
-
 ## Requirements
 
 - Python ≥ 3.10
-- CUDA-capable GPU — an A100 (40/80 GB) is recommended; all models are loaded in bfloat16 with eager attention (the knockout hooks patch the eager attention path)
-- A Hugging Face access token with read access to gated models (Llama, Gemma)
+- A CUDA GPU (an A100 40/80 GB is recommended). Models run in bfloat16 with eager attention, which the knockout hooks patch.
+- A Hugging Face token with access to the gated models (Llama, Gemma), read from the `HF_TOKEN` environment variable only
 
 ```bash
 pip install -r requirements.txt
 export HF_TOKEN=<your_huggingface_token>
 ```
 
-The token is only ever read from the `HF_TOKEN` environment variable (`common/config.py`); no notebook contains a token.
-
 ## Usage
-
-Each notebook runs top-to-bottom on a single model:
 
 1. Open a notebook, e.g. `binding_knockout/binding_knockout_instruct.ipynb`.
 2. Set the model in the first code cell:
@@ -65,14 +60,14 @@ Each notebook runs top-to-bottom on a single model:
                            # base notebooks:     {"mistral", "llama", "gemma",  "nemo"}
    ```
 
-   Note the historical key naming: the base tables use `"gemma"` where the instruct tables use `"gemma2"`.
-3. Run all cells. Outputs (pickles, figures) are written to `results/<model>_<variant>/`.
+   Base tables use `"gemma"` where instruct tables use `"gemma2"`.
+3. Run all cells. Outputs (pickles, figures) go to `results/<model>_<variant>/`.
 
-All data and output paths are anchored on the repository root (derived from `common/config.py`'s file location), so the notebooks work regardless of the kernel's working directory.
+Paths are resolved from the repository root, so the notebooks run from any working directory. `EXPERIMENTS.md` maps each table and figure of the paper to a notebook and gives the run order.
 
 ## Data
 
-`data/N4_1k.pkl` is the N4 split of the *difference_awareness* benchmark suite from Wang et al. (2025): <https://github.com/Angelina-Wang/difference_awareness> ([arXiv:2502.01926](https://arxiv.org/abs/2502.01926)). Per the original authors, the dataset is intended for evaluation only, not for training (see `data/LICENSE`).
+`data/N4_1k.pkl` is the N4 split of the *difference_awareness* benchmark (Wang et al., 2025; [repository](https://github.com/Angelina-Wang/difference_awareness), [arXiv:2502.01926](https://arxiv.org/abs/2502.01926)). It is intended for evaluation only, not training (see `data/LICENSE`).
 
 ```bibtex
 @inproceedings{wang-etal-2025-fairness,
@@ -91,34 +86,27 @@ All data and output paths are anchored on the repository root (derived from `com
 }
 ```
 
-## Seeds and determinism
+## Reproducibility
 
-- `SEED = 42` (`common/config.py`) — factorial-pair construction and the cross-validated head discovery.
-- Random-head knockout baseline — trial seeds are `1000 + trial` (100 trials per model).
-- MLP neuron screening — neutral-prompt subsampling and the A/B neutral split use `RandomState(7)`.
-- All generation is greedy decoding.
-
-Model forward passes run in bfloat16, so small numerical drift across hardware/library versions is expected; the validation gates use tolerances accordingly.
-
-## Validation gates
-
-Several notebooks end with a validation gate that compares regenerated numbers against the published run (`common/published_targets.py`). These are regeneration tests against the paper's own numbers, not independent validation.
-
-## Code provenance
-
-This release is a consolidated version of the code used for the reported runs. The original working pipeline was organised as one notebook per model per experiment; here each experiment is a single notebook parameterized by `MODEL_KEY`, and the helpers that were duplicated across those copies (model tables, N4 text parsing, prompt formatting, attention-edge hooks, scoring, persistence) are factored into `common/`. The experiment code itself is unchanged. Where a notebook keeps a local copy of a helper rather than importing the shared one, this is deliberate and flagged in the notebook, because the two differ in behaviour. The validation gates described above re-derive the published numbers from the code as released.
+- Seeds: `SEED = 42` (`common/config.py`); random-head baseline trials use `1000 + trial`; MLP neuron screening uses `RandomState(7)`. Generation is greedy.
+- Models run in bfloat16, so small numerical drift is expected. The validation gates at the end of several notebooks compare regenerated numbers with the published run (`common/published_targets.py`), with tolerances.
+- This is the code used for the paper, consolidated into one parameterized notebook per experiment with shared helpers in `common/`.
 
 ## Citation
 
 ```bibtex
-@misc{cultural_binding_heads_2026,
-  title  = {Cultural Binding Heads in Language Models},
-  author = {Anonymous},
-  year   = {2026},
-  note   = {Anonymous submission}
+@misc{floro2026cultural,
+  title         = {Cultural Binding Heads in Language Models},
+  author        = {Floro, Avrile and Benedetto, Luca},
+  year          = {2026},
+  eprint        = {2605.28543},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.AI},
+  url           = {https://arxiv.org/abs/2605.28543},
+  note          = {Accepted at BlackboxNLP 2026}
 }
 ```
 
 ## License
 
-See `LICENSE` (CC0 1.0 Universal, with the upstream addendum restricting the dataset to evaluation-only use). The benchmark in `data/` keeps its original license (`data/LICENSE`, from the *difference_awareness* repository).
+CC0 1.0 Universal (`LICENSE`), with the upstream addendum restricting the dataset to evaluation-only use. The benchmark in `data/` keeps its original license (`data/LICENSE`).
